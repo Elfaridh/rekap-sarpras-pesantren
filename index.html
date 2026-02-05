@@ -1,1 +1,43 @@
-<h1>Rekap Sarpras Pesantren</h1>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rekap Sarpras Pesantren</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header>
+  <h1>Rekap Sarpras</h1>
+  <small>Pesantren</small>
+</header>
+
+<main>
+  <section class="card">
+    <input id="nama" placeholder="Nama Barang">
+    <input id="jumlah" type="number" placeholder="Jumlah">
+    <select id="kondisi">
+      <option value="Baik">Baik</option>
+      <option value="Rusak">Rusak</option>
+    </select>
+    <button onclick="simpan()">Simpan Data</button>
+  </section>
+
+  <section class="card">
+    <h3>Data Sarpras</h3>
+    <ul id="list"></ul>
+  </section>
+</main>
+
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+</body>
+</html>
+
