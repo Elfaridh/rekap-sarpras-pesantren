@@ -1,4 +1,4 @@
-const CACHE_NAME = "sarpras-v4";
+const CACHE_NAME = "sarpras-v5";
 const ASSETS = [
   "./",
   "./index.html",
