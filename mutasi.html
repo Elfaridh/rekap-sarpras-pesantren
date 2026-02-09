@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mutasi Aset | Rekap Sarpras Pesantren</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <h1>Mutasi & Peminjaman</h1>
+      <p>Pindahkan aset antar lokasi atau catat peminjaman.</p>
+    </div>
+    <div class="user-info">
+      <span id="userInfo">Memuat pengguna...</span>
+      <button id="logoutBtn" class="btn-secondary">Keluar</button>
+    </div>
+  </header>
+
+  <nav class="app-nav">
+    <a href="index.html">Dashboard</a>
+    <a href="lokasi.html">Lokasi</a>
+    <a href="aset.html">Aset</a>
+    <a href="pemeliharaan.html">Pemeliharaan</a>
+    <a class="active" href="mutasi.html">Mutasi</a>
+    <a href="laporan.html">Laporan</a>
+  </nav>
+
+  <main>
+    <section class="card">
+      <h2>Catat Mutasi</h2>
+      <form id="mutasiForm" class="grid">
+        <div>
+          <label class="label" for="asetMutasi">Aset</label>
+          <select id="asetMutasi" required></select>
+        </div>
+        <div>
+          <label class="label" for="dariLokasi">Dari Lokasi</label>
+          <input id="dariLokasi" disabled>
+        </div>
+        <div>
+          <label class="label" for="keLokasi">Ke Lokasi</label>
+          <select id="keLokasi" required></select>
+        </div>
+        <div>
+          <label class="label" for="tanggalMutasi">Tanggal</label>
+          <input id="tanggalMutasi" type="date" required>
+        </div>
+        <div>
+          <label class="label" for="penanggungJawab">Penanggung Jawab</label>
+          <input id="penanggungJawab" placeholder="Nama petugas" required>
+        </div>
+        <button type="submit" class="btn-primary">Simpan Mutasi</button>
+      </form>
+      <p id="mutasiMessage" class="muted"></p>
+    </section>
+
+    <section class="card">
+      <h2>Riwayat Mutasi</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Aset</th>
+            <th>Dari</th>
+            <th>Ke</th>
+            <th>Penanggung</th>
+          </tr>
+        </thead>
+        <tbody id="mutasiTable"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">Mutasi otomatis memperbarui lokasi aset.</footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/mutasi.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
