@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pemeliharaan | Rekap Sarpras Pesantren</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand-row">
+      <img class="brand-logo" src="icons/logo-da-ibs.svg" alt="Logo Daarul Amiin IBS">
+      <div class="brand">
+        <h1>Pemeliharaan & Riwayat</h1>
+        <p class="brand-meta">Daarul Amiin IBS</p>
+        <p>Catat perawatan rutin dan perbaikan aset.</p>
+      </div>
+    </div>
+    <div class="user-info">
+      <span id="userInfo">Memuat pengguna...</span>
+      <button id="logoutBtn" class="btn-secondary">Keluar</button>
+    </div>
+  </header>
+
+  <nav class="app-nav">
+    <a href="index.html">Dashboard</a>
+    <a href="lokasi.html">Lokasi</a>
+    <a href="aset.html">Aset</a>
+    <a class="active" href="pemeliharaan.html">Pemeliharaan</a>
+    <a href="mutasi.html">Mutasi</a>
+    <a href="laporan.html">Laporan</a>
+  </nav>
+
+  <main>
+    <section class="card">
+      <h2>Catat Pemeliharaan</h2>
+      <form id="pemeliharaanForm" class="grid">
+        <div>
+          <label class="label" for="asetPemeliharaan">Aset</label>
+          <select id="asetPemeliharaan" required></select>
+        </div>
+        <div>
+          <label class="label" for="tanggalPemeliharaan">Tanggal</label>
+          <input id="tanggalPemeliharaan" type="date" required>
+        </div>
+        <div>
+          <label class="label" for="catatanPemeliharaan">Catatan</label>
+          <textarea id="catatanPemeliharaan" placeholder="Contoh: Penggantian engsel pintu."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Simpan Riwayat</button>
+      </form>
+      <p id="pemeliharaanMessage" class="muted"></p>
+    </section>
+
+    <section class="card">
+      <h2>Riwayat Pemeliharaan</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Aset</th>
+            <th>Lokasi</th>
+            <th>Catatan</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="pemeliharaanTable"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">Riwayat perawatan membantu perencanaan anggaran.</footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/pemeliharaan.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

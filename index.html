@@ -3,41 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rekap Sarpras Pesantren</title>
-
+  <title>Dashboard | Rekap Sarpras Pesantren</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-<header>
-  <h1>Rekap Sarpras</h1>
-  <small>Pesantren</small>
-</header>
+  <header class="app-header">
+    <div class="brand-row">
+      <img class="brand-logo" src="icons/logo-da-ibs.svg" alt="Logo Daarul Amiin IBS">
+      <div class="brand">
+        <h1>Rekap Sarpras Pesantren</h1>
+        <p class="brand-meta">Daarul Amiin IBS</p>
+        <p>Ringkasan aset, kondisi, dan kebutuhan perawatan.</p>
+      </div>
+    </div>
+    <div class="user-info">
+      <span id="userInfo">Memuat pengguna...</span>
+      <button id="logoutBtn" class="btn-secondary">Keluar</button>
+    </div>
+  </header>
 
-<main>
-  <section class="card">
-    <input id="nama" placeholder="Nama Barang">
-    <input id="jumlah" type="number" placeholder="Jumlah">
-    <select id="kondisi">
-      <option value="Baik">Baik</option>
-      <option value="Rusak">Rusak</option>
-    </select>
-    <button onclick="simpan()">Simpan Data</button>
-  </section>
+  <nav class="app-nav">
+    <a class="active" href="index.html">Dashboard</a>
+    <a href="lokasi.html">Lokasi</a>
+    <a href="aset.html">Aset</a>
+    <a href="pemeliharaan.html">Pemeliharaan</a>
+    <a href="mutasi.html">Mutasi</a>
+    <a href="laporan.html">Laporan</a>
+  </nav>
 
-  <section class="card">
-    <h3>Data Sarpras</h3>
-    <ul id="list"></ul>
-  </section>
-</main>
+  <main>
+    <section class="card grid grid-3" id="statCards">
+      <div class="stat">
+        <span class="muted">Total Aset</span>
+        <h3 id="totalAset">0</h3>
+        <span class="badge badge-success" id="totalLokasi">0 lokasi aktif</span>
+      </div>
+      <div class="stat">
+        <span class="muted">Kondisi Baik</span>
+        <h3 id="totalBaik">0</h3>
+        <span class="badge badge-success">Siap digunakan</span>
+      </div>
+      <div class="stat">
+        <span class="muted">Perlu Perhatian</span>
+        <h3 id="totalPerhatian">0</h3>
+        <span class="badge badge-warning">Butuh perawatan</span>
+      </div>
+    </section>
 
-<script src="app.js"></script>
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
-</script>
+    <section class="card">
+      <h2>Prioritas Perawatan</h2>
+      <p class="muted">Daftar aset yang kondisinya rusak atau belum dirawat 6 bulan terakhir.</p>
+      <div id="prioritasContainer" class="grid"></div>
+    </section>
+
+    <section class="card">
+      <h2>Akses Cepat</h2>
+      <div class="grid grid-2">
+        <a class="card" href="aset.html">
+          <h3>Tambah Aset</h3>
+          <p class="muted">Catat aset baru beserta foto dan kondisi awal.</p>
+        </a>
+        <a class="card" href="pemeliharaan.html">
+          <h3>Catat Perawatan</h3>
+          <p class="muted">Simpan riwayat perbaikan dan pemeliharaan.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">Mode offline aktif. Data tersimpan di perangkat Anda.</footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
-
