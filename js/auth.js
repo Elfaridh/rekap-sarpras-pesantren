@@ -53,3 +53,8 @@ function setupLogoutButton() {
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) logoutBtn.addEventListener("click", logout);
 }
+
+function isAdmin() {
+  const user = getCurrentUser();
+  return user?.role === "Admin";
+}

@@ -107,6 +107,7 @@ function badgeForCondition(kondisi) {
 
 async function renderAsetTable() {
   cachedAset = await getAll("aset");
+  const canDelete = isAdmin();
   const search = document.getElementById("cariAset").value.toLowerCase();
   const filterLokasi = document.getElementById("filterLokasi").value;
   const filterKategori = document.getElementById("filterKategori").value;
@@ -125,6 +126,9 @@ async function renderAsetTable() {
 
   data.forEach(item => {
     const lokasi = cachedLokasi.find(loc => loc.id === item.lokasiId);
+    const deleteButton = canDelete
+      ? `<button class="btn-danger" data-delete="${item.id}">Hapus</button>`
+      : "";
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${item.foto ? `<img src="${item.foto}" alt="${item.nama}">` : "-"}</td>
@@ -135,7 +139,7 @@ async function renderAsetTable() {
       <td>${item.jumlah}</td>
       <td class="action-group">
         <button class="btn-secondary" data-edit="${item.id}">Edit</button>
-        <button class="btn-danger" data-delete="${item.id}">Hapus</button>
+        ${deleteButton}
       </td>
     `;
     table.appendChild(row);
@@ -144,9 +148,11 @@ async function renderAsetTable() {
   table.querySelectorAll("button[data-edit]").forEach(button => {
     button.addEventListener("click", () => editAset(Number(button.dataset.edit)));
   });
-  table.querySelectorAll("button[data-delete]").forEach(button => {
-    button.addEventListener("click", () => deleteAset(Number(button.dataset.delete)));
-  });
+  if (canDelete) {
+    table.querySelectorAll("button[data-delete]").forEach(button => {
+      button.addEventListener("click", () => deleteAset(Number(button.dataset.delete)));
+    });
+  }
 }
 
 async function editAset(id) {

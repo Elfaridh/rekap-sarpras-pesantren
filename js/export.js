@@ -1,6 +1,6 @@
 function toCsvRow(row) {
   return row
-    .map(value => `"${String(value ?? "").replace(/"/g, "\"")}"`)
+    .map(value => `"${String(value ?? "").replace(/"/g, "\"\"")}"`)
     .join(",");
 }
 

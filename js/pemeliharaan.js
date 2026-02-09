@@ -40,6 +40,7 @@ async function renderPemeliharaanTable() {
   const aset = await getAll("aset");
   const lokasi = await getAll("lokasi");
   const pemeliharaan = await getAll("pemeliharaan");
+  const canDelete = isAdmin();
 
   const table = document.getElementById("pemeliharaanTable");
   table.innerHTML = "";
@@ -49,20 +50,25 @@ async function renderPemeliharaanTable() {
   pemeliharaan.forEach(item => {
     const asetData = aset.find(data => data.id === item.asetId);
     const lokasiData = lokasi.find(loc => loc.id === asetData?.lokasiId);
+    const deleteButton = canDelete
+      ? `<button class="btn-danger" data-delete="${item.id}">Hapus</button>`
+      : "-";
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${formatDate(item.tanggal)}</td>
       <td>${asetData?.nama || "-"}</td>
       <td>${lokasiData?.nama || "-"}</td>
       <td>${item.catatan || "-"}</td>
-      <td><button class="btn-danger" data-delete="${item.id}">Hapus</button></td>
+      <td>${deleteButton}</td>
     `;
     table.appendChild(row);
   });
 
-  table.querySelectorAll("button[data-delete]").forEach(button => {
-    button.addEventListener("click", () => deletePemeliharaan(Number(button.dataset.delete)));
-  });
+  if (canDelete) {
+    table.querySelectorAll("button[data-delete]").forEach(button => {
+      button.addEventListener("click", () => deletePemeliharaan(Number(button.dataset.delete)));
+    });
+  }
 }
 
 async function deletePemeliharaan(id) {

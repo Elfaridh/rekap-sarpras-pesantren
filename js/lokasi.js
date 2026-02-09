@@ -40,10 +40,14 @@ function resetLokasiForm() {
 
 async function renderLokasiTable() {
   const lokasi = await getAll("lokasi");
+  const canDelete = isAdmin();
   const table = document.getElementById("lokasiTable");
   table.innerHTML = "";
 
   lokasi.forEach(item => {
+    const deleteButton = canDelete
+      ? `<button class="btn-danger" data-delete="${item.id}">Hapus</button>`
+      : "";
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${item.nama}</td>
@@ -51,7 +55,7 @@ async function renderLokasiTable() {
       <td>${item.catatan || "-"}</td>
       <td class="action-group">
         <button class="btn-secondary" data-edit="${item.id}">Edit</button>
-        <button class="btn-danger" data-delete="${item.id}">Hapus</button>
+        ${deleteButton}
       </td>
     `;
     table.appendChild(row);
@@ -61,9 +65,11 @@ async function renderLokasiTable() {
     button.addEventListener("click", () => editLokasi(Number(button.dataset.edit)));
   });
 
-  table.querySelectorAll("button[data-delete]").forEach(button => {
-    button.addEventListener("click", () => deleteLokasi(Number(button.dataset.delete)));
-  });
+  if (canDelete) {
+    table.querySelectorAll("button[data-delete]").forEach(button => {
+      button.addEventListener("click", () => deleteLokasi(Number(button.dataset.delete)));
+    });
+  }
 }
 
 async function editLokasi(id) {
