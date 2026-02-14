@@ -3,12 +3,18 @@ window.pageInit = async function () {
   const lokasi = await getAll("lokasi");
   const pemeliharaan = await getAll("pemeliharaan");
 
+  const normalizeKondisi = value => String(value || "").toLowerCase().trim();
+  const isBaik = item => {
+    const kondisi = normalizeKondisi(item.kondisi);
+    return kondisi === "baik" || kondisi === "ok" || kondisi === "normal";
+  };
+
   const totalAset = aset.reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
   const totalBaik = aset
-    .filter(item => item.kondisi === "Baik")
+    .filter(isBaik)
     .reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
   const totalRusak = aset
-    .filter(item => item.kondisi !== "Baik")
+    .filter(item => !isBaik(item))
     .reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
 
   const lastMaintenanceMap = new Map();
@@ -22,19 +28,15 @@ window.pageInit = async function () {
   const today = new Date();
   const sixMonthsMs = 1000 * 60 * 60 * 24 * 30 * 6;
 
-  const totalTanpaRawat = aset.filter(item => !lastMaintenanceMap.has(item.id)).length;
-
   const prioritas = aset.filter(item => {
     const last = lastMaintenanceMap.get(item.id);
     const overdue = last ? (today - new Date(last) > sixMonthsMs) : false;
-    return item.kondisi !== "Baik" || overdue;
+    return !isBaik(item) || overdue;
   });
 
   document.getElementById("totalAset").textContent = totalAset;
   document.getElementById("totalBaik").textContent = totalBaik;
   document.getElementById("totalRusak").textContent = totalRusak;
-  document.getElementById("totalTanpaRawat").textContent = totalTanpaRawat;
-  document.getElementById("totalPerhatian").textContent = prioritas.length;
   document.getElementById("totalLokasi").textContent = `${lokasi.length} lokasi aktif`;
 
   const container = document.getElementById("prioritasContainer");
@@ -53,7 +55,7 @@ window.pageInit = async function () {
     card.className = "card";
     const last = lastMaintenanceMap.get(item.id);
     const lokasiNama = lokasi.find(loc => loc.id === item.lokasiId)?.nama || "-";
-    const label = item.kondisi !== "Baik" ? "Kondisi perlu perbaikan" : "Jadwal perawatan rutin";
+    const label = !isBaik(item) ? "Kondisi perlu perbaikan" : "Jadwal perawatan rutin";
 
     card.innerHTML = `
       <h3>${item.nama}</h3>
