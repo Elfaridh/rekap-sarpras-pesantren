@@ -27,6 +27,7 @@ window.pageInit = async function () {
 
   const today = new Date();
   const sixMonthsMs = 1000 * 60 * 60 * 24 * 30 * 6;
+  const totalTanpaRawat = aset.filter(item => !lastMaintenanceMap.has(item.id)).length;
 
   const prioritas = aset.filter(item => {
     const last = lastMaintenanceMap.get(item.id);
@@ -37,6 +38,8 @@ window.pageInit = async function () {
   document.getElementById("totalAset").textContent = totalAset;
   document.getElementById("totalBaik").textContent = totalBaik;
   document.getElementById("totalRusak").textContent = totalRusak;
+  document.getElementById("totalTanpaRawat").textContent = totalTanpaRawat;
+  document.getElementById("totalPerhatian").textContent = prioritas.length;
   document.getElementById("totalLokasi").textContent = `${lokasi.length} lokasi aktif`;
 
   const container = document.getElementById("prioritasContainer");
