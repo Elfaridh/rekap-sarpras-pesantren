@@ -36,7 +36,7 @@
   <main>
     <section class="card">
       <h2>Impor Data</h2>
-      <p class="muted">Unggah file CSV atau JSON untuk memasukkan data secara otomatis.</p>
+      <p class="muted">Unggah file CSV, JSON, atau Excel (.xls/.xlsx) untuk memasukkan data secara otomatis.</p>
       <div class="grid grid-3">
         <div>
           <label class="label" for="importType">Tipe Data</label>
@@ -49,8 +49,8 @@
           </select>
         </div>
         <div>
-          <label class="label" for="importFile">File CSV/JSON</label>
-          <input id="importFile" type="file" accept=".csv,.json">
+          <label class="label" for="importFile">File CSV/JSON/Excel</label>
+          <input id="importFile" type="file" accept=".csv,.json,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
         </div>
         <div>
           <label class="label" for="autoLokasi">Opsi</label>
@@ -65,13 +65,14 @@
       </div>
       <p id="importMessage" class="muted"></p>
       <div class="notice" style="margin-top:12px;">
-        <strong>Petunjuk Kolom CSV</strong>
+        <strong>Petunjuk Kolom Data (CSV/Excel)</strong>
         <ul class="muted">
           <li>Lokasi: Nama, Kategori/Tipe, Catatan</li>
           <li>Aset: Nama, Lokasi, Kategori, Kondisi, Jumlah, Tahun</li>
           <li>Pemeliharaan: Aset, Tanggal, Catatan</li>
           <li>Mutasi: Aset, Dari, Ke, Tanggal, Penanggung Jawab</li>
         </ul>
+        <p class="muted" style="margin:8px 0 0;">Catatan: untuk file Excel format .xlsx kompleks, ekspor dulu ke CSV dari Excel agar pembacaan data lebih stabil.</p>
       </div>
     </section>
 
