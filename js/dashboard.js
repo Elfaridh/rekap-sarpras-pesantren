@@ -6,7 +6,7 @@ window.pageInit = async function () {
   const normalizeKondisi = value => String(value || "").toLowerCase().trim();
   const isBaik = item => {
     const kondisi = normalizeKondisi(item.kondisi);
-    return kondisi === "baik" || kondisi === "ok" || kondisi === "normal";
+    return kondisi === "baik" || kondisi.startsWith("baik ") || kondisi === "ok" || kondisi === "normal";
   };
 
   const totalAset = aset.reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
