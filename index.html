@@ -15,7 +15,7 @@
       <div class="brand">
         <h1>Rekap Sarpras Pesantren</h1>
         <p class="brand-meta">Daarul Amiin IBS</p>
-        <p>Ringkasan aset, kondisi, dan kebutuhan perawatan.</p>
+        <p>Panel kontrol cepat untuk evaluasi kondisi aset harian.</p>
       </div>
     </div>
     <div class="user-info">
@@ -46,15 +46,35 @@
         <span class="badge badge-success">Siap digunakan</span>
       </div>
       <div class="stat">
-        <span class="muted">Perlu Perhatian</span>
-        <h3 id="totalPerhatian">0</h3>
-        <span class="badge badge-warning">Butuh perawatan</span>
+        <span class="muted">Rusak / Rusak Berat</span>
+        <h3 id="totalRusak">0</h3>
+        <span class="badge badge-danger">Perlu tindakan</span>
       </div>
+      <div class="stat">
+        <span class="muted">Belum Ada Riwayat Rawat</span>
+        <h3 id="totalTanpaRawat">0</h3>
+        <span class="badge badge-warning">Perlu dijadwalkan</span>
+      </div>
+      <div class="stat">
+        <span class="muted">Prioritas Perawatan</span>
+        <h3 id="totalPerhatian">0</h3>
+        <span class="badge badge-warning">Butuh tindak lanjut</span>
+      </div>
+    </section>
+
+    <section class="card quick-guide">
+      <h2>Panduan Cepat Pemula</h2>
+      <ol class="muted">
+        <li>Isi <strong>Master Lokasi</strong> terlebih dahulu.</li>
+        <li>Tambahkan data aset lengkap dengan kondisi awal.</li>
+        <li>Catat pemeliharaan dan mutasi secara rutin setiap ada perubahan.</li>
+        <li>Gunakan halaman laporan untuk evaluasi dan ekspor data.</li>
+      </ol>
     </section>
 
     <section class="card">
       <h2>Prioritas Perawatan</h2>
-      <p class="muted">Daftar aset yang kondisinya rusak atau belum dirawat 6 bulan terakhir.</p>
+      <p class="muted">Aset dengan kondisi rusak/rusak berat atau aset yang belum dirawat > 6 bulan.</p>
       <div id="prioritasContainer" class="grid"></div>
     </section>
 
@@ -73,7 +93,7 @@
     </section>
   </main>
 
-  <footer class="footer">Mode offline aktif. Data tersimpan di perangkat Anda.</footer>
+  <footer class="footer">Mode offline aktif. Data tersimpan aman di perangkat Anda.</footer>
 
   <script src="js/db.js"></script>
   <script src="js/auth.js"></script>

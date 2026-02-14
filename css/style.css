@@ -3,7 +3,7 @@
   --primary: #0f766e;
   --primary-dark: #0b5e57;
   --accent: #0ea5e9;
-  --bg: #f8fafc;
+  --bg: #f3f7fb;
   --text: #0f172a;
   --muted: #64748b;
   --card: #ffffff;
@@ -20,7 +20,7 @@
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
-  background: var(--bg);
+  background: radial-gradient(circle at top, #ecfeff 0%, var(--bg) 35%, var(--bg) 100%);
   color: var(--text);
 }
 
@@ -30,45 +30,64 @@ a {
 }
 
 .app-header {
-  background: var(--primary);
+  background: linear-gradient(125deg, #0f766e 0%, #0b5e57 50%, #0f766e 100%);
   color: #fff;
-  padding: 20px 16px;
+  padding: 18px 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-header::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  right: -50px;
+  top: -80px;
+  border-radius: 999px;
+  background: rgba(14, 165, 233, 0.2);
 }
 
 .brand-row {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 .brand-logo {
-  width: 36px;
-  height: 36px;
-  margin-top: 2px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 4px;
+  width: 44px;
+  height: 44px;
+  margin-top: 1px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 3px;
   object-fit: contain;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
 }
 
 .brand h1 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.2px;
 }
 
 .brand p {
   margin: 4px 0 0;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .brand-meta {
   margin: 4px 0 0;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.83rem;
+  color: #bbf7d0;
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
 .user-info {
@@ -77,6 +96,8 @@ a {
   justify-content: space-between;
   gap: 12px;
   font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
 }
 
 .app-nav {
@@ -84,11 +105,12 @@ a {
   gap: 8px;
   overflow-x: auto;
   padding: 12px 16px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 15;
+  backdrop-filter: blur(6px);
 }
 
 .app-nav a {
@@ -98,10 +120,12 @@ a {
   font-size: 0.85rem;
   background: var(--bg);
   white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .app-nav a.active,
 .app-nav a:hover {
+  transform: translateY(-1px);
   background: var(--primary);
   color: #fff;
 }
@@ -111,6 +135,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  animation: fadeUp 0.35s ease;
 }
 
 .card {
@@ -119,6 +144,12 @@ main {
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 12px 24px rgba(15, 118, 110, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 26px rgba(15, 118, 110, 0.14);
 }
 
 .card h2,
@@ -136,7 +167,7 @@ main {
 }
 
 .grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .label {
@@ -150,11 +181,20 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 12px 12px;
+  padding: 12px;
   border-radius: 10px;
   border: 1px solid var(--border);
   font-size: 0.95rem;
   background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
 }
 
 textarea {
@@ -170,11 +210,18 @@ button,
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-1px);
 }
 
 .btn-primary {
   background: var(--primary);
   color: #fff;
+  box-shadow: 0 10px 18px rgba(15, 118, 110, 0.22);
 }
 
 .btn-primary:hover {
@@ -229,9 +276,14 @@ button,
   border-bottom: 1px solid var(--border);
 }
 
+.table tr:nth-child(even) {
+  background: rgba(148, 163, 184, 0.07);
+}
+
 .table th {
   color: var(--muted);
   font-weight: 600;
+  background: rgba(226, 232, 240, 0.35);
 }
 
 .table td img {
@@ -250,7 +302,7 @@ button,
 
 .stat h3 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.45rem;
 }
 
 .muted {
@@ -271,11 +323,26 @@ button,
   gap: 8px;
 }
 
+.quick-guide {
+  border-left: 4px solid var(--accent);
+}
+
 .footer {
   text-align: center;
   padding: 24px 16px;
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (min-width: 768px) {
